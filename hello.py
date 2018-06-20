@@ -18,10 +18,10 @@ twit_username = 'realDonaldTrump'
 
 
 twit_username = "realDonaldTrump"
-ckey = '3yI33cFzg0V5DBSTP35oSDtJE'
-csecret = 'nsz1YmNo431dTJAo99LhuqWiqgfs99f3eXRigN2G59cxocb6t3'
-atoken = '1000946197790683137-nLPGfJXdyI5OnQf18Bl6HyGgpIsDHE'
-asecret = 'elMUbkeKnouymctjlwhwNRlbud9Ygixpwmr7KWxz6Qgsb'
+ckey = 'xxx'
+csecret = 'xxx'
+atoken = 'xxx'
+asecret = 'xxx'
 
 
 auth = OAuthHandler(ckey, csecret)
