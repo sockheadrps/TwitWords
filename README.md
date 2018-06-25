@@ -2,6 +2,7 @@
 Continuation of Trump Tweets in a way. It has been modified to be presented via Flask/Dash web application.
 Takes user input for Twitter Handle and returns a graph of the user's most frequently used words.
 <br>
+<br>
 Required Libraries:<br>
 dash<br>
 dash_core_components as dcc<br>
