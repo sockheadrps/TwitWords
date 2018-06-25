@@ -14,9 +14,8 @@ import numpy as np
 from dash.dependencies import Input, Output
 
 hello = dash.Dash()
-twit_username = 'realDonaldTrump'
 
-
+# Twitter API log in
 twit_username = "realDonaldTrump"
 ckey = 'xxx'
 csecret = 'xxx'
@@ -31,19 +30,20 @@ stop_words = set(stopwords.words("english"))
 newStopWords = ('RT','@', '.', ',', '!', '?', '...', '/', "'",'https', '&', '#', 'amp', ';', ':','\'','\"', '(', ')','`', '')
 stop_words.update(newStopWords)
 
+#Getting user input twitter handle, returns a <class 'tweepy.models.ResultSet'>
 def tweet_list(twitname):
 	tweet_list = api.user_timeline(twitname, count=300, tweet_mode="extended")
 	return tweet_list
 
-
+#Removes some stopwords from each tweet. Takes in the tweepy result set, and returns a counter object
 def run_scrape(tweet_list):	
 	total_words = Counter()
 	c = Counter() #initialize coutner object
 	for tweet in tweet_list: #For each tweet specified in set up of tweet_list
 		if not tweet.retweeted and ('RT @' not in tweet.full_text): #if tweet ID has not been saved, and tweet is not a RT		
-			words = word_tokenize(tweet.full_text)
+			words = word_tokenize(tweet.full_text) #Turns everything into tokenized words (WORD),(POS)
 			filtered_sentence = []
-			for w in words: #removes stop words from tokenized tweet
+			for w in words: 
 				if w not in stop_words:
 					filtered_sentence.append(w) #create new sentence with stopwords removed
 			c = Counter(filtered_sentence) #creates counter object from new sentence
@@ -51,7 +51,7 @@ def run_scrape(tweet_list):
 	return total_words
 
 
-
+#Takes in a counter object, organizes the data for use with typical graphing (MatPlotLib, Dash)
 def plot_stuff(counterObj):
 	x_list = []
 	y_list = []
@@ -65,7 +65,7 @@ def plot_stuff(counterObj):
 	x_range = list(range(len(x_list)))
 	return x_list, y_list, x_len, x_range
 
-
+#Layout stuff
 hello.layout = html.Div(children=[
 	html.H1(children='Most frequently tweeted words for: '),
 
@@ -77,6 +77,7 @@ hello.layout = html.Div(children=[
 	html.Div(id='output-graph')
 
 ])
+
 
 @hello.callback(
 	Output(component_id='output-graph', component_property='children'),
